@@ -82,11 +82,27 @@ const noSpecialCharsSchema = z.object({
     }),
 });
 
+const monoalphabeticSchema = z.object({
+  input: z
+    .string()
+    .min(1, { message: "Input cannot be empty" })
+    .regex(/^[a-zA-Z]*$/, {
+      message: "Input can only contain letters",
+    }),
+
+  key: z
+    .string()
+    .min(1, { message: "Key cannot be empty" })
+    .regex(/^[a-zA-Z]*$/, {
+      message: "Key can only contain letters",
+    }),
+});
+
 export const schemas: Record<IAlgorithmId, any> = {
   "one-time-pad": oneTimePadSchema, // Done
   ceaser: ceaserSchema, // Done
-  hill: hillSchema, // Done
-  monoalphabetic: oneTimePadSchema,
+  hill: hillSchema, // ! Error
+  monoalphabetic: monoalphabeticSchema, // Done
   playfair: noSpecialCharsSchema, // Done
   polyalphabetic: oneTimePadSchema,
   "rail-fence": railFenceSchema, // Done
