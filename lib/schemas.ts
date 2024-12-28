@@ -66,6 +66,22 @@ const railFenceSchema = z.object({
   }),
 });
 
+const playfairSchema = z.object({
+  input: z
+    .string()
+    .min(1, { message: "Input cannot be empty" })
+    .regex(/^[a-zA-Z]*$/, {
+      message: "Input can only contain letters",
+    }),
+
+  key: z
+    .string()
+    .min(1, { message: "Key cannot be empty" })
+    .regex(/^[a-zA-Z0-9]*$/, {
+      message: "Key can only contain letters and numbers",
+    }),
+});
+
 const noSpecialCharsSchema = z.object({
   input: z
     .string()
@@ -103,10 +119,10 @@ export const schemas: Record<IAlgorithmId, any> = {
   ceaser: ceaserSchema, // Done
   hill: hillSchema, // Done
   "rail-fence": railFenceSchema, // Done
+  playfair: playfairSchema, // Done
 
   monoalphabetic: onlyLettersSchema, // Done
   polyalphabetic: onlyLettersSchema, // Done
 
-  playfair: noSpecialCharsSchema, // Done
   "row-column": noSpecialCharsSchema, // Done
 };
