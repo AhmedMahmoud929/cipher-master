@@ -82,7 +82,7 @@ const noSpecialCharsSchema = z.object({
     }),
 });
 
-const monoalphabeticSchema = z.object({
+const onlyLettersSchema = z.object({
   input: z
     .string()
     .min(1, { message: "Input cannot be empty" })
@@ -101,10 +101,12 @@ const monoalphabeticSchema = z.object({
 export const schemas: Record<IAlgorithmId, any> = {
   "one-time-pad": oneTimePadSchema, // Done
   ceaser: ceaserSchema, // Done
-  hill: hillSchema, // ! Error
-  monoalphabetic: monoalphabeticSchema, // Done
-  playfair: noSpecialCharsSchema, // Done
-  polyalphabetic: oneTimePadSchema,
+  hill: hillSchema, // Done
   "rail-fence": railFenceSchema, // Done
+
+  monoalphabetic: onlyLettersSchema, // Done
+  polyalphabetic: onlyLettersSchema, // Done
+
+  playfair: noSpecialCharsSchema, // Done
   "row-column": noSpecialCharsSchema, // Done
 };
