@@ -3,12 +3,18 @@ import { z } from "zod";
 
 const oneTimePadSchema = z
   .object({
-    input: z.string().min(1, {
-      message: "Input messsage required",
-    }),
-    key: z.string().min(1, {
-      message: "Key text required",
-    }),
+    input: z
+      .string()
+      .min(1, { message: "Input cannot be empty" })
+      .regex(/^[a-zA-Z\s]*$/, {
+        message: "Input can only contain letters and spaces",
+      }), // Allow spaces in the input
+    key: z
+      .string()
+      .min(1, { message: "Key cannot be empty" })
+      .regex(/^[a-zA-Z]*$/, {
+        message: "Key can only contain letters",
+      }),
   })
   .refine(
     (data) => {
@@ -23,20 +29,41 @@ const oneTimePadSchema = z
 
 const ceaserSchema = z.object({
   input: z.string().min(1, {
-    message: "Input messsage required",
+    message: "Input message required",
   }),
   key: z
     .string()
-    .regex(/^[0-9]+$/, {
-      message: "Key must be a number",
-    }) // Ensure the key is a string of digits
+    .regex(/^[0-9]+$|^[A-Za-z]$/, {
+      message: "Key must be a number between 0-25 or a single English letter",
+    })
     .refine(
       (val) => {
-        const num = parseInt(val, 10);
-        return num >= 0 && num <= 25; // Ensure the number is between 0 and 25
+        if (/^[0-9]+$/.test(val)) {
+          const num = parseInt(val, 10);
+          return num >= 0 && num <= 25; // Number validation
+        } else if (/^[A-Za-z]$/.test(val)) {
+          const charCode = val.charCodeAt(0);
+          return (
+            (charCode >= 65 && charCode <= 90) ||
+            (charCode >= 97 && charCode <= 122)
+          ); // Letter validation
+        }
+        return false;
       },
-      { message: "Key must be between 0 and 25" }
-    ),
+      {
+        message: "Key must be a number between 0-25 or a single English letter",
+      }
+    )
+    .transform((val) => {
+      if (/^[A-Za-z]$/.test(val)) {
+        // Convert letter to number
+        const charCode = val.charCodeAt(0);
+        return charCode >= 65 && charCode <= 90
+          ? charCode - 65 // Uppercase
+          : charCode - 97; // Lowercase
+      }
+      return parseInt(val, 10); // Convert number string to number
+    }),
 });
 
 const hillSchema = z.object({

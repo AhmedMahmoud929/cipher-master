@@ -49,7 +49,7 @@ export default function EncryptionDashboard() {
   return (
     <MainWrapper>
       <div className="flex-1 flex flex-col lg:overflow-hidden">
-        <Navbar title="Playfair Cipher" />
+        <Navbar title="" />
 
         <main className="flex-1 flex flex-col justify-center items-center bg-gray-100">
           <Image
