@@ -56,4 +56,4 @@ If this project helped you understand cryptography better, give it a star! ⭐
 
 MIT License - Go wild! 🎉
 
-Made with 💖 by `NULL Team_[](url)_` for FCAI USC!
+Made with 💖 by `NULL Team` for FCAI USC!
