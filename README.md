@@ -14,6 +14,11 @@ Our toolkit includes these amazing classical ciphers:
 - ⚔️ Caesar Cipher - The OG encryption method
 - 🔄 Row-Column Transposition - Mix it up!
 
+## 🧰 Algorithms
+- Main code : ```/lib/algorithms/index.ts```
+- Validation schemas : ```/lib/schemas.ts```
+- Algorithms info: ```/constants/index.tsx```
+
 ## 🎮 How to Use
 
 1. 📦 Clone this repository
@@ -51,4 +56,4 @@ If this project helped you understand cryptography better, give it a star! ⭐
 
 MIT License - Go wild! 🎉
 
-Made with 💖 by `Team NULL` for FCAI USC!
+Made with 💖 by `NULL Team` for FCAI USC!
